@@ -61,10 +61,12 @@ kernel sources must be fetched and some required build tools must be installed.
 git clone --depth=1 https://github.com/raspberrypi/linux
 sudo apt install git bc libncurses5-dev wget bison flex libssl-dev make
 cd linux
+CONFIG_LOCALVERSION="-v7l-PTP_KERNEL"
 KERNEL_IMAGETYPE=Image
-KERNEL=kernel7
-make bcmrpi3_defconfig
-make -j4 zImage modules dtbs
+#KERNEL=kernel7
+#make bcmrpi3_defconfig
+KERNEL=kernel8
+make bcm2711_defconfig
 ```
 
 This will build the kernel in its default configuration and will take a
@@ -92,7 +94,7 @@ configuration target like `make menuconfig`.
 It is now possible to build the kernel with the changes we made to support PTP:
 
 ```
-make -j4 zImage modules dtbs
+make -j4 Image.gz modules dtbs
 ```
 
 The new kernel image, modules and dtbs must be installed over the current ones.
@@ -101,10 +103,10 @@ to rollback.
 
 ```
 sudo make modules_install
-sudo cp arch/arm/boot/dts/*.dtb /boot/
-sudo cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/
-sudo cp arch/arm/boot/dts/overlays/README /boot/overlays/
-sudo cp arch/arm/boot/zImage /boot/$KERNEL.img
+sudo cp arch/arm64/boot/dts/broadcom/*.dtb /boot/
+sudo cp arch/arm64/boot/dts/overlays/*.dtb* /boot/overlays/
+sudo cp arch/arm64/boot/dts/overlays/README /boot/overlays/
+sudo cp arch/arm64/boot/Image.gz /boot/$KERNEL.img
 ```
 
 The RaspberryPi is now ready to run ptp4l and can be rebooted for changes to
