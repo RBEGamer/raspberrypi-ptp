@@ -59,8 +59,9 @@ kernel sources must be fetched and some required build tools must be installed.
 
 ```
 git clone --depth=1 https://github.com/raspberrypi/linux
-sudo apt install git bc libncurses5-dev
+sudo apt install git bc libncurses5-dev wget bison flex libssl-dev make
 cd linux
+KERNEL_IMAGETYPE=Image
 KERNEL=kernel7
 make bcm2709_defconfig
 make -j4 zImage modules dtbs
