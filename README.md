@@ -63,7 +63,7 @@ sudo apt install git bc libncurses5-dev wget bison flex libssl-dev make
 cd linux
 KERNEL_IMAGETYPE=Image
 KERNEL=kernel7
-make bcm2709_defconfig
+make bcmrpi3_defconfig
 make -j4 zImage modules dtbs
 ```
 
@@ -92,7 +92,6 @@ configuration target like `make menuconfig`.
 It is now possible to build the kernel with the changes we made to support PTP:
 
 ```
-make olddefconfig
 make -j4 zImage modules dtbs
 ```
 
