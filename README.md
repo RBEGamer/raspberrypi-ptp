@@ -1,5 +1,5 @@
 # PTP on Raspberrypi3 with Raspbian
-
+## FOR 64bit RASPBIAN IMAGE
 This guide explains how to enable support for Precision Time Protocol (PTP) to
 a Raspberrypi3 running the Raspbian operating system.
 
