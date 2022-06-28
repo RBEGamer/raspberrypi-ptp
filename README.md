@@ -94,7 +94,7 @@ configuration target like `make menuconfig`.
 It is now possible to build the kernel with the changes we made to support PTP:
 
 ```
-make -j4 Image.gz modules dtbs
+sudo -E make -j4 Image.gz modules dtbs
 ```
 
 The new kernel image, modules and dtbs must be installed over the current ones.
