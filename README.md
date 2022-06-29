@@ -21,17 +21,11 @@ a local or SSH connection for the Raspbian default user pi is assumed from
 now on. Note that SSH server is not enabled by default on Raspbian
 distribution.
 
-## (optionally) upgrade the distribution
-
-```
-sudo apt update
-sudo apt upgrade
-```
-
 ## Install ptp related packages
 
 ```
 sudo apt update
+sudo apt upgrade
 sudo apt install ethtool linuxptp
 ```
 
@@ -63,38 +57,12 @@ sudo apt install git bc libncurses5-dev wget bison flex libssl-dev make
 cd linux
 CONFIG_LOCALVERSION="-v7l-PTP_KERNEL"
 KERNEL_IMAGETYPE=Image
-#KERNEL=kernel7
-#make bcmrpi3_defconfig
+# RPI3b+ x64
 KERNEL=kernel8
 make bcm2711_defconfig
-```
-
-This will build the kernel in its default configuration and will take a
-**long** time. If anything fails, up to here please see the
-[kernel building raspberrypi.org official
-page](https://www.raspberrypi.org/documentation/linux/kernel/building.md).
-
-### Apply required configuration changes
-
-Some extra configuration options must be applied to the default
-`bcm2709_defconfig`. This can be done as follows. Run these commands from
-within the linux kernel sources directory.
-
-```
 echo 'CONFIG_NETWORK_PHY_TIMESTAMPING=y' >> .config
 echo 'CONFIG_PTP_1588_CLOCK=y' >> .config
-```
-
-The above commands work if you already built the default kernel before applying
-the pathes. Otherwise you can enable them manually with any default kernel
-configuration target like `make menuconfig`.
-
-### Build kernel with PTP enabling changes
-
-It is now possible to build the kernel with the changes we made to support PTP:
-
-```
-sudo -E make -j4 Image.gz modules dtbs
+make -j4 Image.gz modules dtbs
 ```
 
 The new kernel image, modules and dtbs must be installed over the current ones.
